@@ -1,7 +1,4 @@
-export interface User {
-  name: string;
-  password: string;
-}
+import { User } from "../interfaces/user";
 
 export const users: User[] = [
   { name: "david", password: "12345" },

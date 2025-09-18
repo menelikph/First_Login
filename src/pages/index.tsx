@@ -21,6 +21,7 @@ const Login = () => {
     const user = authenticateUser(name, password);
   
     if (user) {
+      alert("Login correcto");
       console.log("Login correcto:", user);
       router.push("/dashboard");
     } else {
