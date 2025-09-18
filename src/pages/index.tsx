@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { users } from "../helpers/utils";
+import { authenticateUser } from "@/helpers/auth";  
+
 
 const Login = () => {
   const [name, setName] = useState("");
@@ -15,14 +16,12 @@ const Login = () => {
     if (name === "" || password === "") {
       alert("Por favor ingresa usuario y contraseña");
     }
-    
-    /* Validar usuario y contraseña */
-    const foundUser = users.find(
-      (user) => user.name === name && user.password === password
-    );
 
-    if (foundUser) {
-      console.log("Login correcto:", foundUser);
+    // Llamar a la función de autenticación
+    const user = authenticateUser(name, password);
+  
+    if (user) {
+      console.log("Login correcto:", user);
       router.push("/dashboard");
     } else {
       alert("Usuario o contraseña incorrectos");
