@@ -1,4 +1,4 @@
-import handler from '../api/hello';
+
 
 const Dashboard = () => {
 
