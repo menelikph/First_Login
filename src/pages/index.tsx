@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { authenticateUser } from "@/helpers/auth";
 import { useRouter } from "next/router";
-import { authenticateUser } from "@/helpers/auth";  
-
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
   const [name, setName] = useState("");
@@ -14,25 +14,51 @@ const Login = () => {
 
   const handleClick = () => {
     if (name === "" || password === "") {
-      alert("Por favor ingresa usuario y contraseña");
-    }
-
-    // Llamar a la función de autenticación
-    const user = authenticateUser(name, password);
-  
-    if (user) {
-      alert("Login correcto");
-      console.log("Login correcto:", user);
-      router.push("/dashboard");
+      toast.error("Error, Porfavor llene los espacios ", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } else {
-      alert("Usuario o contraseña incorrectos");
-      setName("");
-      setPassword("");
-      console.log("Login fallido");
+      // Llamar a la función de autenticación
+      const user = authenticateUser(name, password);
+
+      if (user) {
+        toast.success("🦄 Wow so easy!", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        console.log("Login correcto:", user);
+        router.push("/dashboard");
+      } else {
+        toast.error("usuario o contraseña incorrectos", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setName("");
+        setPassword("");
+        console.log("Login fallido");
+      }
     }
 
-
-        /*const userFound = users.find(
+    /*const userFound = users.find(
       (item) => item.name === name && item.password === password
     );
 
@@ -46,9 +72,7 @@ const Login = () => {
       console.log("Login correcto:", userFound);
       router.push("/dashboard");
     }*/
-
   };
-
 
   return (
     <div className="container">
@@ -72,6 +96,7 @@ const Login = () => {
       />
 
       <button onClick={handleClick}>Ingresar</button>
+      <ToastContainer />
     </div>
   );
 };
