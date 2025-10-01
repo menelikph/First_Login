@@ -1,5 +1,4 @@
 import { getProperties } from '@/services/properties';
-import handler from '../api/hello';
 
 const handlerClick = async () => {
   const response = await getProperties();
